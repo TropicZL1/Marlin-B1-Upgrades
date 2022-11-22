@@ -6,8 +6,25 @@ This build of Marlin utilizes UBL to level the bed on the Ender 3 S1.
 - I maintained most defaults from the config which means the mesh is a 5x5. The number of mesh points can be changed on the screen firmware, I would highly recommend using a 15x15 mesh to eliminate any issues you may encounter with your bed not being level.
 - For screen firmware please use https://github.com/mriscoc/Ender3V2S1/releases make sure to download the appropriate firmware for your screen. Either Ender3S1-F4-UBL-xxxxxxxx.bin or Ender3S1-F1-UBL-xxxxxxxx.bin.
 - I would also recommend manually leveling your bed at least once. Try to set the bed as level as possible, shit in shit out applies here and no matter how many mesh points you create you will never be able to get good quality prints if the bed is all jank.
-- Included is a pre-compiled firmware.bin. Obviously, you may use it if you can't be bothered to compile it yourself but it's wise to just double-check my work and compile it yourself :)
+- Included is a pre-compiled firmware.bin for STM32F4 boards. Obviously, you may use it if you can't be bothered to compile it yourself but it's wise to just double-check my work and compile it yourself :)
 
+## Flashing Mainboard Firmware
+
+The bootloader which handles flashing new firmware on this board remembers the last filename you used.
+
+Therefore, to flash the compiled firmware binary onto the board you must give the "`firmware.bin`" file on the SD card a unique name, different from the name of the previous firmware file, or you will be greeted with a blank screen on the next boot. The file rename is done for you when compiling with PlatformIO. Otherwise, rename the `*.bin` file accordingly.
+
+Pay attention to the two versions of the motherboard for the S1, one is using a SoC STM32F1 and the other using a STM32F4:
+
+ - Ender 3 printers that come with a firmware version **1.x.x** have the **STM32F1** chip.
+ - Ender 3 printers that come with a firmware version **3.x.x** have the **STM32F4** chip.
+ - Check the version number on the STM32Fx chip itself to confirm you have the correct version.
+ - Installing 1.x.x stock firmware or a compiled one to the target **STM32F1** on **STM32F4** mainboards **might brick** them! And _vice-versa_.
+
+Where to put the firmware file on the SDCard:
+
+ - STM32F1 board: Put the `*.bin` file into the root folder.
+ - STM32F4 board: Put the `*.bin` file into a folder named `STM32F4_UPDATE`.
 
 Cura Start Code
 
